@@ -1,15 +1,14 @@
 <html>
-    <script>
-        var nome = prompt("Qual é o seu nome?");
-        alert("Olá "+ nome);
-        /*
-        OPERAÇÕES ENVOLVENDO STRINGS E NÚMEROS
-        */
-       var a = "20";
-       var b = a * 2; // b = 40
-       var e = a + 2; // e = 202
-       var f = Number(a);
-       var g = f + 2; // g = 22
-       alert("g: "+ g);
-    </script>
+    <head></head>
+    <body>
+        <script>
+            //LEITURA DE DADOS
+            var nota1 = Number(prompt("Nota do primeiro aluno: "));
+            var nota2 = Number(prompt("Nota do segundo aluno: "));
+            //PROCESSAMENTO
+            var media = (nota1 + nota2) / 2
+            //SAIDA DE DADOS
+           alert("A média das notas é: " +media);
+        </script>    
+    </body>
 </html>
