@@ -1,15 +1,13 @@
-// declara a função mostrarOLa
-function mostrarOLa(){
-
-    //obtém o conteúdo do campo (com id) nome
-    var inNome = document.getElementById("nome").value;
-
-    //exibe no parágrafo (resposta): "Olá" e o nome informado
-    document.getElementById("resposta").textContent = "Olá " +inNome;
+function valorPagar(){
+    var inPor15 = document.getElementById("inPor15");
+    var inTempo = document.getElementById("inTempo");
+    var outValorFinal = document.getElementById("outValorFinal");
+    var Por15 = inPor15.value;
+    var Tempo = inTempo.value;
+    var Valor = Math.ceil(Tempo / 15) * Por15;
+    outValorFinal.textContent = "Valor a pagar R$: "+Valor.toFixed(2);
 }
-//criar uma referencia ao botão (com id) mostrar
-var btMostrar = document.getElementById("mostrar");
 
-/*registra o botão "mostrar" um ouvinte para o evento click que ao ser clicado
-irá chamar a função mostrarOla*/
-btMostrar.addEventListener("click", mostrarOLa);
+var btCalcule = document.getElementById("btCalcule");
+btCalcule.addEventListener("click", valorPagar);
+
