@@ -6,15 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Supermercado JS</h1>
-    <hr>
-    <p>Produto:
-        <input type="text" id="inProduto"></p>
-    <p> Preço R$:
-         <input type="text" id="inPreco"></p>
-    <button id="btPromocao"> Ver Promoção </button>
-        <p id="outProduto"></p>
-        <p id="outDesconto"></p>
+<h1>Programa Cálculo do Peso Ideal</h1>
+
+<p> Nome:
+    <input type="text" id="inNome"></p>
+
+<p id="sexo">Sexo:
+    <input type="radio" name="sexo" id="rbMasculino"> Masculino
+    <input type="radio" name="sexo" id="rbFeminino"> Feminino  
+</p>
+
+<p>Altura:
+    <input type="text" id="inAltura"></p>
+
+<button id="btPeso"> Calcular Peso Ideal </button>
+<button id="btLimpar"> Limpar Campos </button>
+
+<p id="outResultado"></p>
     <script src="index.js"></script>
 </body>
 </html>
