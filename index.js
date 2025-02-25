@@ -1,17 +1,26 @@
 function VerificarNumero(){
-    var inVelo = document.getElementById("inVelo")
-    var inCondu = document.getElementById("inCondu")
-    var outSituacao = document.getElementById("outSituacao")
-    var velo = Number(inVelo.value)
-    var condu = Number(inCondu.value)
-    if(condu <= velo){
-        outSituacao.textContent = "Situação: sem Multa"
+    var inValor = document.getElementById("inValor")
+    var outTempo = document.getElementById("outTempo")
+    var outTroco = document.getElementById("outTroco")
+    var valor = Number(inValor.value)
+    if (valor < 1){
+        outTempo.textContent = "Valor insuficiente"
+        outTroco.textContent = ""
     }
-    else if(condu <= velo * 1.2){
-        outSituacao.textContent = "Situação: Multa leve "
+    else if (valor < 1.75){
+        outTempo.textContent = "Tempo: 30 min"
+        var troco = Math.floor(valor - 1)
+        outTroco.textContent = "Troco R$: "+troco
     }
-    else{
-        outSituacao.textContent = "Situação: Multa Grave "
+    else if (valor >= 1.75 && valor < 3 ){
+        outTempo.textContent = "Tempo: 60 min"
+        var troco = Math.floor(valor - 1.75)
+        outTroco.textContent = "Troco R$: "+troco
+    }
+    else if (valor >= 3 ){
+        outTempo.textContent = "Tempo: 120 min"
+        var troco = Math.floor(valor - 3)
+        outTroco.textContent = "Troco R$: "+troco
     }
 }
 btExibir = document.getElementById("btExibir")
