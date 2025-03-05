@@ -1,26 +1,19 @@
-var numContas = 0
-var valTotal = 0
-var resposta = ""
-function FazerConta (){
-    var inDescricao = document.getElementById("inDescricao")
-    var inValor = document.getElementById("inValor")
-    var outConta = document.getElementById("outConta")
-    var outTotal = document.getElementById("outTotal")
-    var descricao = inDescricao.value
-    var valor = Number(inValor.value)
-    if(descricao == "" || valor == "" || isNaN (valor)){
-        alert("preenche os formulários corretamente...")
-        inDescricao.focus()
+var simbol =("*_")
+function Simbolos(){
+    var inNumero = document.getElementById("inNumero")
+    var outSimbolos = document.getElementById("outSimbolos")
+    var num = Number(inNumero.value)
+    if(num == 0 || isNaN(num)){
+        alert("Número inválido")
+        inNumero.focus()
         return
     }
-    numContas++
-    valTotal = valTotal + valor
-    resposta = resposta + descricao + " - R$: " +valor.toFixed(2) +"\n"
-    outConta.textContent = resposta + "----------------------------------"
-    outTotal.textContent = numContas +  " Conta(s) - Total R$: "+valTotal.toFixed(2)
-    inDescricao.value = ""
-    inValor.value = ""
-    inDescricao.focus()
+    var estrelas = ("")
+    for(i=1; i <= num; i++){
+        estrelas = estrelas + "*_"
+        outSimbolos.textContent = (estrelas + "*")
+    }
 }
-var btMostrar = document.getElementById("btMostrar")
-btMostrar.addEventListener("click",  FazerConta)
+
+var btPreencher = document.getElementById("btPreencher")
+btPreencher.addEventListener("click", Simbolos)
