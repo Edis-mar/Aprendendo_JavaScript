@@ -1,28 +1,28 @@
-function RepetirFruta(){
-    var inNumero = document.getElementById("inNumero")
-    var inFruta = document.getElementById("inFruta")
-    var outFr = document.getElementById("outFr")
-    var fruta=inFruta.value
-    var num = Number(inNumero.value)
-    if(fruta == ""){
-        alert("Escreva uma fruta")
-        inFruta.focus()
+function MostrarPrevisao(){
+    var inChin = document.getElementById("inChin")
+    var inAnos = document.getElementById("inAnos")
+    var outPrevisao = document.getElementById("ouPrevisao")
+    var chin=Number(inChin.value)
+    var anos = Number(inAnos.value)
+    if (chin == "" || isNaN(chin)){
+        alert("escreva um número válido")
+        inChin.focus()
         return
-    }else if(/\d/.test(fruta)){
-        alert("Escreva uma fruta")
-        inFruta.focus()
-        return 
-    }else if(num == 0 || isNaN(num)){
-        alert("Número inválido")
-        inNumero.focus()
+    }else if (chin < 2){
+        alert("Escreva um número maior que 2")
+        inChin.focus()
+        return
+    }else if (anos == "" || isNaN(anos)){
+        alert("escreva um número válido")
+        inAnos.focus()
         return
     }
-    var simbolo =" * "
     var repeticao = ""
-    for(i=1; i<=num; i++){
-        repeticao += fruta + simbolo
+    for(i=1; i<=anos; i++){
+        repeticao += i +"º Ano: " +chin+ " Chinchilas \n"
+        chin = chin * 3
     } 
-    outFr.textContent= repeticao
+    outPrevisao.textContent= repeticao
 }
-var btRepetir = document.getElementById("btRepetir")
-btRepetir.addEventListener("click", RepetirFruta)
+var btMostrar = document.getElementById("btMostrar")
+btMostrar.addEventListener("click", MostrarPrevisao)
