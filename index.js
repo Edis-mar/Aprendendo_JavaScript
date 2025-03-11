@@ -1,28 +1,65 @@
-function MostrarPrevisao(){
-    var inChin = document.getElementById("inChin")
-    var inAnos = document.getElementById("inAnos")
-    var outPrevisao = document.getElementById("ouPrevisao")
-    var chin=Number(inChin.value)
-    var anos = Number(inAnos.value)
-    if (chin == "" || isNaN(chin)){
-        alert("escreva um número válido")
-        inChin.focus()
-        return
-    }else if (chin < 2){
-        alert("Escreva um número maior que 2")
-        inChin.focus()
-        return
-    }else if (anos == "" || isNaN(anos)){
-        alert("escreva um número válido")
-        inAnos.focus()
+var pacientes = []
+function adicionarPaciente(){
+    var inPaciente = document.getElementById("inPaciente")
+    var outLista = document.getElementById("outLista")
+    var nome = inPaciente.value
+    if (nome == ""){
+        alert("Informe o nome do Paciente:")
+        inPaciente.focus()
         return
     }
-    var repeticao = ""
-    for(i=1; i<=anos; i++){
-        repeticao += i +"º Ano: " +chin+ " Chinchilas \n"
-        chin = chin * 3
-    } 
-    outPrevisao.textContent= repeticao
+    pacientes.push(nome)
+    var lista = ""
+    for(i = 0; i < pacientes.length; i++){
+        lista += (i + 1) + ". " + pacientes[i] + "\n"
+    }
+    outLista.textContent = lista
+    inPaciente.value = ""
+    inPaciente.focus()
 }
-var btMostrar = document.getElementById("btMostrar")
-btMostrar.addEventListener("click", MostrarPrevisao)
+var btAdd = document.getElementById("btAdd")
+btAdd.addEventListener("click", adicionarPaciente)
+
+
+
+function Urgencia(){
+    var inPaciente = document.getElementById("inPaciente")
+    var outLista = document.getElementById("outLista")
+    var nome = inPaciente.value
+    if (nome == ""){
+        alert("Informe o nome do Paciente:")
+        inPaciente.focus()
+        return
+    }
+    pacientes.unshift(nome)
+    var lista = ""
+    for(i = 0; i < pacientes.length; i++){
+        lista += (i + 1) + ". " + pacientes[i] + "\n"
+    }
+    outLista.textContent = lista
+    inPaciente.value = ""
+    inPaciente.focus()
+}
+var btUrg = document.getElementById("btUrg")
+btUrg.addEventListener("click", Urgencia)
+
+
+
+function atenderPaciente(){
+    if (pacientes.lenght == 0) {
+        alert("Não há pacientes na lista de espera")
+        inPaciente.focus()
+        return
+    }
+    var outAtendimento = document.getElementById("outAtendimento")
+    var outLista = document.getElementById("outLista")
+    var atender = pacientes.shift()
+    outAtendimento.textContent = atender
+    var lista = ""
+    for(i = 0; i < pacientes.length; i++){
+        lista += (i + 1) + ". " + pacientes[i] + "\n"
+    }
+    outLista.textContent = lista
+}
+var btAtt = document.getElementById("btAtt")
+btAtt.addEventListener("click", atenderPaciente)
