@@ -1,68 +1,61 @@
-var erros = [] //VETOR ACUMULADOR DOS ERROS
-var sorteado = Math.floor(Math.random() *100) +1 //NUMERO SORTEADO
-const chances = 6 //NUMERO DE CHANCES
+var carros = []
 
-function apostarNumero(){
+function adicionarCarros (){
+    var inModelo = document.getElementById("inModelo")
+    var inPreco = document.getElementById("inPreco")
+    var modelo = inModelo.value
+    var preco = Number(inPreco.value)
 
-    //DECLARAR VARIAVEIS
-    var inNumero = document.getElementById("inNumero")
-    var num = Number(inNumero.value)
-
-    // VERIFICAR O VALOR NO INPUT
-    if (isNaN(num) || num <= 0 || num > 100){
-        alert("Escreva um numero válido")
-        inNumero.focus()
+    if (modelo == "" || preco == 0 || isNaN(preco)){
+        alert("Informe corretamente os dados...")
+        inModelo.focus
         return
     }
+    carros.push( { modelo: modelo, preco:preco } )
+    inModelo.value = ""
+    inPreco.value = ""
+    inModelo.focus()
 
-    //DECLARAR VARIAVEIS 2
-    var outErros = document.getElementById("outErros")
-    var outChances = document.getElementById("outChances")
-    var outDica = document.getElementById("outDica")
-    
-    //SE ACERTAR
-    if (num == sorteado){
-        alert("Parabéns!!! Você Acertou")
-        btApostar.disabled = true
-        btJogar.className = "exibe"
-        outDica.textContent = "Parabéns!! Número sorteado: "+sorteado
+    listarCarros()
+}
+var btAdd = document.getElementById("btAdd")
+btAdd.addEventListener("click", adicionarCarros)
+
+
+function listarCarros(){
+    if(carros.length == 0){
+        alert("Não há carros na lista")
+        return
+    }
+    var lista = ""
+
+    for(let i in carros){
+        lista +=carros[i].modelo + " - R$: " + carros[i].preco.toFixed(2) + "\n"
+    }
+    document.getElementById("outLista").textContent = lista
+}
+var btListar = document.getElementById("btListar")
+btListar.addEventListener("click", listarCarros)
+
+
+function filtrarCarros(){
+    var maximo = Number(prompt("Qual o valor máximo que o cliente deseja pagar?"))
+    if (maximo == 0 || isNaN(maximo)){
+        return
+    }
+    var lista = ""
+    for(var i in carros){
+        if( carros[i].preco <= maximo){
+            lista += carros[i].modelo + " - R$: " + carros[i].preco.toFixed(2) + "\n"
+        }    
+    }
+    var outlista = document.getElementById("outLista")
+    if (lista == ""){
+        outlista.textContent = "Não há carros com preço até R$: "+ maximo.tofixed(2)
     }else {
-         // SE REPETIR O NUMERO ERRADO 
-        if (erros.indexOf(num) >= 0){
-            alert("você ja apostou o número "+num+ ". Tente outro...")
-
-        //SE ERRAR  
-        }else {
-            erros.push(num)
-            var numErros = erros.length
-            var numChances = chances - numErros
-            outErros.textContent = numErros + "(" + erros.join(", ")+ ")"
-            outChances.textContent = numChances
-
-            //SE AS CHANCES ACABAREM
-            if(numChances == 0){
-                alert("Suas chances acabaram...")
-                btApostar.disabled = true
-                btJogar.className = "exibe"
-                outDica.textContent = "Game Over!! Número Sorterado: "+sorteado
-
-            //ENQUANTO TEM CHANCES    
-            }else { 
-                var dica = num < sorteado ? "maior" : "menor"
-                outDica.textContent = "Dica: Tente um número " + dica + " que " +num
-                }
-            } 
-        }
-        
-        //RESETAR O INPUT
-       inNumero.value = ""
-       inNumero.focus()
+        outlista.textContent = "Carros até R$: "+ maximo.toFixed(2) +
+         "\n----------------------------\n"+ lista
+    }
 }
-var btApostar = document.getElementById("btApostar")
-btApostar.addEventListener("click", apostarNumero)
-
-function JogarNovamente(){
-    location.reload()
-}
-var btJogar = document.getElementById("btJogar")
-btJogar.addEventListener("click", JogarNovamente)
+var btFiltrar = document.getElementById("btFiltrar")
+btFiltrar.addEventListener("click", filtrarCarros)
