@@ -1,69 +1,58 @@
-var criancas = []
-function adicionarCriança(){
-    var inNome = document.getElementById("inNome")
-    var inIdade = document.getElementById("inIdade")
-    var nome = inNome.value
-    var idade = Number(inIdade.value)
+var clubeS = []
+function adicionarClubes(){
+    var inClube = document.getElementById("inClube")
+    var outLista = document.getElementById("outLista")
+    var clube = inClube.value
 
-    if (nome == "" || idade == 0 || isNaN(idade)){
-        alert("Insira os dados corretamente")
-        inNome.focus()
+    if (clube == ""){
+        alert("escreva o nome do clube...")
+        inClube.focus()
         return
     }
+    clubeS.push(clube)
 
-    criancas.push({nome: nome , idade:idade})
-    inNome.value = ""
-    inIdade.value = ""
-    inNome.focus()
+    inClube.value = ""
+    inClube.focus()
 }
 var btAdd = document.getElementById("btAdd")
-btAdd.addEventListener("click", adicionarCriança)
+btAdd.addEventListener("click", adicionarClubes)
 
-function criarLista (){
-
-    if (criancas.length == 0){
-       alert("isncreva crianças na lista...")
-       return 
+function ListarClubes(){
+    if (clubeS == ""){
+        alert("A lista de Clubes esta vazia...")
     }
 
     var lista = ""
-
-    for(var i in criancas){
-        lista += criancas[i].nome + " - " + criancas[i].idade + " anos\n"
+    var num = 1
+    for (var i in clubeS){
+        lista += num + ". " + clubeS[i]+ "\n"
+        num++
     }
-    document.getElementById("outLista").textContent = lista 
+
+    document.getElementById("outLista").textContent = lista
 }
-btListar = document.getElementById("btListar")
-btListar.addEventListener("click", criarLista)
+var btListar = document.getElementById("btListar")
+btListar.addEventListener("click", ListarClubes)
 
-function filtrarLista (){
-    if (criancas.length == 0){
-        alert("isncreva crianças na lista...")
-        return 
-     }
-    var copia = criancas.slice()
-    copia.sort(function (a , b) {return a.idade - b.idade} )
-    var resumo = ""
-
-    var aux = copia[0].idade
-    var nomes = []
-
-    for(var i in copia){
-        if(copia[i].idade == aux){ // PREENCHER A LISTA NOME
-            nomes.push(copia[i].nome)
-        }else{  //CRIAR A PRIMEIRA LINHA DE BLOCOS DE CRIANÇAS
-            resumo += aux + " ano(s): " + nomes.length + " crianca(s) - "
-            resumo += (nomes.length / copia.length * 100).toFixed(2) + "%\n"
-            resumo += "(" + nomes.join(", ") + ")\n\n"
-            aux = copia[i].idade
-            nomes = []
-            nomes.push(copia[i].nome)
-        }
+function MontarTabela(){
+    if (clubeS == ""){
+        alert("Adicione Clubes a lista")
+    }    
+    
+    var copia = clubeS.slice()
+    var confrontos = ""
+    if ( copia.length % 2 !== 0){
+        alert("Numero de times ímpares, não foi possivel criar a tabela")
+        return   
     }
-    resumo += aux + " ano(s): " + nomes.length + " crianca(s) - "
-    resumo += (nomes.length / copia.length * 100).toFixed(2) + "%\n"
-    resumo += "(" + nomes.join(", ") + ")\n\n"
-    document.getElementById("outLista").textContent = resumo
+
+    while (copia.length > 0) {
+      var time1 = copia.shift()     
+      var time2 = copia.pop()       
+      confrontos += `${time1} x ${time2}\n`
+    }
+
+    document.getElementById("outLista").textContent = confrontos
 }
-var btFiltrar = document.getElementById("btFiltrar")
-btFiltrar.addEventListener("click", filtrarLista) 
+var btMontar = document.getElementById("btMontar")
+btMontar.addEventListener("click", MontarTabela)
