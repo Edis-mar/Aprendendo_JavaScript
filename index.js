@@ -1,50 +1,42 @@
-var dados = []
-function adicionarConcursados(){
-    var inCandidato = document.getElementById("inCandidato")
-    var inNum = document.getElementById("inNum")
-    var candidato = inCandidato.value
-    var num = Number(inNum.value)
-
-    if(candidato == "" || num == 0 || isNaN(num) ){
-        alert("Preencha os formulários corretamente")
-        inCandidato.focus()
+var news = []
+function Adicionar(){
+    var inNoticia = document.getElementById("inNoticia")
+    var noticia = inNoticia.value
+    if (noticia == ""){
+        alert("informe uma noticia")
+        inNoticia.focus()
         return
     }
 
-    dados.push( { nome:candidato, num:num } )
-    inCandidato.value = ""
-    inNum.value = ""
-    inCandidato.focus()
+    news.push(noticia)
+    lista = ""
+    for(var i = 0; i < news.length ;i++){
+        lista += (i+1) + "º) " + news[i] + "\n"
+    }
+    document.getElementById("outQuant").textContent = "Notícias Cadastradas: " + news.length
+    document.getElementById("outLista").textContent = lista
+    inNoticia.value = ""
+    inNoticia.focus()
 }
 var btAdd = document.getElementById("btAdd")
-btAdd.addEventListener("click", adicionarConcursados)
+btAdd.addEventListener("click", Adicionar)
 
-function listarTodos(){
-    if (dados.length == 0){
+function ultimasNoticias(){
+    if (news.length == 0){
         alert("a lista está vazia")
         return
     }
 
-    var lista = ""
-    for(var i in dados){
-        lista += dados[i].nome + " - " + dados[i].num + " acertos \n"
-    }
-    document.getElementById("outLista").textContent = lista    
-}
-var btListar = document.getElementById("btListar")
-btListar.addEventListener("click", listarTodos)
+    copia = news.slice(-3)
+    lista = ""
 
-function listarAprovados(){
-    var limite = Number(prompt ("Número de Acertos para Aprovação?"))
-    var copia = dados.slice()
-    var listaAprovados = ""
-
-    for(var i in copia){
-        if (copia[i].num >= limite){
-            listaAprovados += copia[i].nome + " - " + copia[i].num + " acertos \n"
-        }
+    for(var i = 0; i < copia.length; i++){
+        lista += (news.length - copia.length + i + 1)+ "º) " + copia[i] + "\n"
     }
-    document.getElementById("outLista").textContent = listaAprovados
+
+    document.getElementById("outLista").textContent=  "3 Últimas Noticias \n -------------------------------\n" +lista
+    inNoticia.value = ""
+    inNoticia.focus()
 }
-var btAprovados = document.getElementById("btAprovados")
-btAprovados.addEventListener("click", listarAprovados)
+btLastNews = document.getElementById("btLastNews")
+btLastNews.addEventListener("click", ultimasNoticias)
