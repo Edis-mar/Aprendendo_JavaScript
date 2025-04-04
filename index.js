@@ -1,46 +1,50 @@
-var listaNum = []
-function AdicionarNum(){
+var dados = []
+function adicionarConcursados(){
+    var inCandidato = document.getElementById("inCandidato")
     var inNum = document.getElementById("inNum")
+    var candidato = inCandidato.value
     var num = Number(inNum.value)
 
-    if(isNaN(num)){
-        alert("escreva um número válido")
-        inNum.focus()
+    if(candidato == "" || num == 0 || isNaN(num) ){
+        alert("Preencha os formulários corretamente")
+        inCandidato.focus()
         return
-    }else if(listaNum.indexOf(num) !== -1){
-        alert("Não repita o numero")
-        inNum.focus()
-        inNum.value = ""
-        return
-    }else{
-        listaNum.push(num)
-        atualizarLista()
     }
-    inNum.focus()
+
+    dados.push( { nome:candidato, num:num } )
+    inCandidato.value = ""
     inNum.value = ""
+    inCandidato.focus()
 }
-function atualizarLista(){
-    document.getElementById("outLista").textContent = "Número:" + listaNum.join(",")
-} 
-
 var btAdd = document.getElementById("btAdd")
-btAdd.addEventListener("click", AdicionarNum)
+btAdd.addEventListener("click", adicionarConcursados)
 
-function VerificarOrdem(){
-    if (listaNum.length === 0){
-        alert("A lista está vazia")
-        inNum.focus()
+function listarTodos(){
+    if (dados.length == 0){
+        alert("a lista está vazia")
         return
     }
 
-    for(var i = 0; i < listaNum.length - 1; i++){
-        if(listaNum[i] > listaNum[i + 1]){
-            document.getElementById("outInfo").textContent = "Atenção... os Números não estão em ordem crescente"
-            return
+    var lista = ""
+    for(var i in dados){
+        lista += dados[i].nome + " - " + dados[i].num + " acertos \n"
+    }
+    document.getElementById("outLista").textContent = lista    
+}
+var btListar = document.getElementById("btListar")
+btListar.addEventListener("click", listarTodos)
+
+function listarAprovados(){
+    var limite = Number(prompt ("Número de Acertos para Aprovação?"))
+    var copia = dados.slice()
+    var listaAprovados = ""
+
+    for(var i in copia){
+        if (copia[i].num >= limite){
+            listaAprovados += copia[i].nome + " - " + copia[i].num + " acertos \n"
         }
     }
-    document.getElementById("outInfo").textContent = "Parábens, os Números estão em ordem crescente"
-
+    document.getElementById("outLista").textContent = listaAprovados
 }
-var btVerificar = document.getElementById("btVerificar")
-btVerificar.addEventListener("click", VerificarOrdem)
+var btAprovados = document.getElementById("btAprovados")
+btAprovados.addEventListener("click", listarAprovados)
