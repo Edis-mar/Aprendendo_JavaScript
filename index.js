@@ -1,42 +1,25 @@
-var news = []
-function Adicionar(){
-    var inNoticia = document.getElementById("inNoticia")
-    var noticia = inNoticia.value
-    if (noticia == ""){
-        alert("informe uma noticia")
-        inNoticia.focus()
+function montarDica(){
+    var inFruta = document.getElementById("inFruta")
+    var outDica = document.getElementById("outDica")
+    var fruta = inFruta.value
+    if(inFruta.value == ""){
+        alert("informe a fruta...")
+        inFruta.focus()
         return
     }
-
-    news.push(noticia)
-    lista = ""
-    for(var i = 0; i < news.length ;i++){
-        lista += (i+1) + "º) " + news[i] + "\n"
+    var resposta = fruta.charAt(0)
+    var estrelas = "*"
+    var tam = fruta.length
+    for(var i = 1 ; i < tam ; i++){
+        if(fruta.charAt(i) == fruta.charAt(0)){
+            resposta +=fruta.charAt(0)
+        }else{
+            resposta += "_"
+        }
+        estrelas += "*"
     }
-    document.getElementById("outQuant").textContent = "Notícias Cadastradas: " + news.length
-    document.getElementById("outLista").textContent = lista
-    inNoticia.value = ""
-    inNoticia.focus()
+    outDica.textContent = resposta
+    inFruta.value = "estrelas"
 }
-var btAdd = document.getElementById("btAdd")
-btAdd.addEventListener("click", Adicionar)
-
-function ultimasNoticias(){
-    if (news.length == 0){
-        alert("a lista está vazia")
-        return
-    }
-
-    copia = news.slice(-3)
-    lista = ""
-
-    for(var i = 0; i < copia.length; i++){
-        lista += (news.length - copia.length + i + 1)+ "º) " + copia[i] + "\n"
-    }
-
-    document.getElementById("outLista").textContent=  "3 Últimas Noticias \n -------------------------------\n" +lista
-    inNoticia.value = ""
-    inNoticia.focus()
-}
-btLastNews = document.getElementById("btLastNews")
-btLastNews.addEventListener("click", ultimasNoticias)
+var btMontar = document.getElementById("btMontar")
+btMontar.addEventListener("click", montarDica)
