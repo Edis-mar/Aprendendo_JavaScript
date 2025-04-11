@@ -1,25 +1,29 @@
-function montarDica(){
-    var inFruta = document.getElementById("inFruta")
-    var outDica = document.getElementById("outDica")
-    var fruta = inFruta.value
-    if(inFruta.value == ""){
-        alert("informe a fruta...")
-        inFruta.focus()
-        return
+function verSenha(){
+    var inSenha = document.getElementById("inSenha")
+    var outMensagem = document.getElementById("outMensagem")
+    var senha = inSenha.value
+    var erros = []
+
+    if (senha.length < 8 || senha.length > 15){
+        erros.push("possuir entre 8 e 15 caracteres")
     }
-    var resposta = fruta.charAt(0)
-    var estrelas = "*"
-    var tam = fruta.length
-    for(var i = 1 ; i < tam ; i++){
-        if(fruta.charAt(i) == fruta.charAt(0)){
-            resposta +=fruta.charAt(0)
-        }else{
-            resposta += "_"
-        }
-        estrelas += "*"
+    if(senha.match(/[0-9]/g) == null){
+        erros.push("possuir números (no mínimo, 1)")
     }
-    outDica.textContent = resposta
-    inFruta.value = "estrelas"
+    if (!senha.match(/[a-z]/g)){
+        erros.push("possuir letras minúsculas (no minimo, 1")
+    }
+    if (!senha.match(/[A-Z]/g) || senha.match(/[A-Z]/g.length == 1)){
+        erros.push("possuir letras maiusculas (no mínimo, 2")
+    }
+    if(!senha.match(/[\W|_]/g)){
+        erros.push("possuir simbolos (no minimo, 1)")
+    }
+    if(erros.length == 0){
+        outMensagem.textContent = "Ok! Senha Válida"
+    } else{
+        outMensagem.textContent = "Erro... A senha deve "+ erros.join(", ")
+    }
 }
-var btMontar = document.getElementById("btMontar")
-btMontar.addEventListener("click", montarDica)
+var btVerificar = document.getElementById("btVerificar")
+btVerificar.addEventListener("click", verSenha)
