@@ -1,33 +1,20 @@
-function criptografar(){
-    var inMessage = document.getElementById("inMessage")
-    var message = inMessage.value
-    if(message == ""){
-        alert("insira a mensagem")
-        inMessage.focus()
+function CriarReferencia(){
+    var inNome = document.getElementById("inNome")
+    var outCitacao = document.getElementById("outCitacao")
+    var nome = inNome.value
+    if(nome == "" || nome.indexOf(" ") == -1){
+        alert("insira o nome no formulário")
+        inNome.focus()
         return
     }
-
-    var cripto = ""
-    var par = []
-    var impar = []
-    for(var i = 0; i < message.length; i++){
-        if(i % 2 == 0){
-            par.push(message.charAt(i))
-        }else{
-            impar.push(message.charAt(i))
-        }
+    var vetor = nome.split(" ")
+    var tam = vetor.length
+    var lastName = vetor[tam - 1]
+    var citacao = []
+    for (var i = 0; i < tam - 1; i++){
+        citacao.push(vetor[i].charAt(0).toUpperCase())
     }
-
-    var cripto = par.join("") + impar.join("")
-    alert("mensagem criptografada: "+ cripto)
+    outCitacao.textContent = lastName + "," + citacao.join(".") + "."
 }
-var btCripto = document.getElementById("btCripto")
-btCripto.addEventListener("click", criptografar)
-
-function Descriptografar (){
-    var inMessage = document.getElementById("inMessage")
-    var message = inMessage.value
-    alert("mensagem descriptografada: "+ message)
-}
-var btDesCripto = document.getElementById("btDesCripto")
-btDesCripto.addEventListener("click", Descriptografar)
+var btGerar = document.getElementById("btGerar")
+btGerar.addEventListener("click", CriarReferencia)
