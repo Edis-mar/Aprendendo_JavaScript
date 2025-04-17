@@ -1,20 +1,24 @@
-function CriarReferencia(){
-    var inNome = document.getElementById("inNome")
-    var outCitacao = document.getElementById("outCitacao")
-    var nome = inNome.value
-    if(nome == "" || nome.indexOf(" ") == -1){
-        alert("insira o nome no formulário")
-        inNome.focus()
+function Palindromo(){    
+    var inFrase = document.getElementById("inFrase")
+    var outVerificacao = document.getElementById("outVerificacao")
+    var frase = inFrase.value.toLowerCase()
+    if(frase == ""){
+        alert("escreva a palavra/frase")
+        inFrase.focus()
         return
     }
-    var vetor = nome.split(" ")
-    var tam = vetor.length
-    var lastName = vetor[tam - 1]
-    var citacao = []
-    for (var i = 0; i < tam - 1; i++){
-        citacao.push(vetor[i].charAt(0).toUpperCase())
+
+    var tam = frase.length
+    var palin = ""
+
+    for(var i = tam -1; i >= 0; i--){
+        palin += frase.charAt(i)
     }
-    outCitacao.textContent = lastName + "," + citacao.join(".") + "."
+    if(palin == frase){
+        outVerificacao.textContent = frase.toUpperCase() + " é um palíndromo"
+    }else{
+        outVerificacao.textContent = frase.toUpperCase() + " não é um palíndromo"
+    }
 }
-var btGerar = document.getElementById("btGerar")
-btGerar.addEventListener("click", CriarReferencia)
+var btVerificar = document.getElementById("btVerificar")
+btVerificar.addEventListener("click", Palindromo)
